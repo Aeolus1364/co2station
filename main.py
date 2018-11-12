@@ -10,7 +10,7 @@ def read():
         m = w.lower()
         if "co2" in m:
             co2 = data[n + 1]
-        elif "humidity" in m:
+        elif "humidity" or "humdity" in m:
             humidity = data[n + 1]
         elif "temperature" in m:
             temperature = data[n + 1]
