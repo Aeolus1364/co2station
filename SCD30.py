@@ -1,18 +1,16 @@
 import subprocess
+import shlex
 
 
-def read():
-    result = subprocess.run(['/home/pi/scd30_on_raspberry/scd30', '-SB'], stdout=subprocess.PIPE)
-    decoded = result.stdout.decode('utf-8')
-    data = decoded.split()
-    co2, humidity, temperature = None, None, None
-    for n, w in enumerate(data):
-        m = w.lower()
-        if "co2" in m:
-            co2 = int(data[n + 1])
-        elif "humidity" in m or "humdity" in m:
-            humidity = float(data[n + 1])
-        elif "temperature" in m:
-            temperature = float(data[n + 1])
+def run_command(command):
+    process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
+    while True:
+        output = process.stdout.readline()
+        if output == '' and process.poll() is not None:
+            break
+    rc = process.poll()
+    return rc
 
-    return co2, humidity, temperature
+
+t = run_command("./scd30 -B -l 0")
+print(t)
