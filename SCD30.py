@@ -8,9 +8,13 @@ def run_command(command):
         output = process.stdout.readline()
         if output == '' and process.poll() is not None:
             break
-    rc = process.poll()
-    return rc
+        if output:
+            text = output.strip().decode("utf-8").split()
+            if text[0] == "CO2:":
+                co2 = text[1]
+                hum = text[4]
+                temp = text[7]
+                print(co2, hum, temp)
 
 
-t = run_command("./scd30 -B -l 0")
-print(t)
+run_command("./scd30 -B -l 0")
