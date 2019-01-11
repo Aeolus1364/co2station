@@ -17,4 +17,4 @@ def run_command(command):
                 print(co2, hum, temp)
 
 
-run_command("./scd30 -B -l 0")
+run_command("/home/pi/scd30_on_raspberry/scd30 -B -l 0")
