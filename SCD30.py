@@ -26,10 +26,10 @@ def run_command(command):
         if output:
             text = output.strip().decode("utf-8").split()
             if text[0] == "CO2:":
-                api.update_status("Current CO2 level: " + co2)
                 co2 = text[1]
                 hum = text[4]
                 temp = text[7]
+                api.update_status("Current CO2 level: " + co2)
                 print(co2, hum, temp)
 
 
