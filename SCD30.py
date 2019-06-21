@@ -16,6 +16,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
+readings = []
 
 def run_command(command):
     process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
@@ -30,8 +31,16 @@ def run_command(command):
                     co2 = text[1]
                     hum = text[4]
                     temp = text[7]
-                
-                    print(co2, hum, temp)
+
+                    readings.append(int(co2))
+
+                    total = 0
+                    for i in readings:
+                        total += i
+                    avg = total / len(readings)
+
+                    print("{0} AVG {1}".format(co2, avg))
+
         except:
             pass
 
