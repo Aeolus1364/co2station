@@ -39,7 +39,7 @@ def run_command(command):
                         total += i
                     avg = total / len(readings)
 
-                    print("{0} AVG {1}".format(co2, avg))
+                    print("{0} AVG {1}".format(co2, round(avg, 2)))
 
         except:
             pass
