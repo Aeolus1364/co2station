@@ -42,8 +42,9 @@ def run_command(command):
 
                     print("{0} AVG {1}".format(co2, round(avg, 2)))
 
-                    with open("data", "w+") as f:
+                    with open("data", "wb+") as f:
                         pickle.dump(readings, f)
+                        print("done")
 
         except:
             pass
