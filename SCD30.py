@@ -1,6 +1,7 @@
 import subprocess
 import shlex
 import tweepy
+import pickle
 
 
 with open("keys", "r") as f:
@@ -40,6 +41,9 @@ def run_command(command):
                     avg = total / len(readings)
 
                     print("{0} AVG {1}".format(co2, round(avg, 2)))
+
+                    with open("data", "w+") as f:
+                        pickle.dump(readings, f)
 
         except:
             pass
