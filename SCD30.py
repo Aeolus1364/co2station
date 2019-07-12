@@ -18,6 +18,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 readings = []
+avgs = []
 
 def run_command(command):
     process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
@@ -40,10 +41,12 @@ def run_command(command):
                         total += i
                     avg = total / len(readings)
 
+                    avgs.append(avg)
+
                     print("{0} AVG {1}".format(co2, round(avg, 2)))
 
                     with open("data", "wb+") as f:
-                        pickle.dump(readings, f)
+                        pickle.dump([readings, avgs], f)
                         print("done")
 
         except:
