@@ -2,6 +2,7 @@ import subprocess
 import shlex
 import tweepy
 import pickle
+import datetime
 
 
 with open("keys", "r") as f:
@@ -18,7 +19,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 readings = []
-avgs = []
+times = []
 
 def run_command(command):
     process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
@@ -35,18 +36,12 @@ def run_command(command):
                     temp = text[7]
 
                     readings.append(int(co2))
+                    timestamp = datetime.datetime.now()
+                    times.append(timestamp)
+                    print("{0} AVG {1}".format(co2, timestamp.ctime()))
 
-                    total = 0
-                    for i in readings:
-                        total += i
-                    avg = total / len(readings)
-
-                    avgs.append(avg)
-
-                    print("{0} AVG {1}".format(co2, round(avg, 2)))
-
-                    with open("data", "wb+") as f:
-                        pickle.dump([readings, avgs], f)
+                    with open("data1", "wb+") as f:
+                        pickle.dump([readings, times], f)
                         print("done")
 
         except:
