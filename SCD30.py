@@ -47,4 +47,4 @@ def run_command(command):
         except:
             pass
 
-run_command("/home/pi/scd30_on_raspberry/scd30 -Bn -l 0")
+run_command("/home/pi/scd30_on_raspberry/scd30 -Bn -l 0 -w 60")
