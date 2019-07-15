@@ -38,7 +38,7 @@ def run_command(command):
                     readings.append(int(co2))
                     timestamp = datetime.datetime.now()
                     times.append(timestamp)
-                    print("{0} AVG {1}".format(co2, timestamp.ctime()))
+                    print("{0} at {1}".format(co2, timestamp.ctime()))
 
                     with open("data1", "wb+") as f:
                         pickle.dump([readings, times], f)
