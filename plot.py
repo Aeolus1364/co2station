@@ -1,7 +1,7 @@
 from matplotlib import pyplot
 import pickle
 
-data = pickle.load(open("data2", "rb"))
+data = pickle.load(open("data1", "rb"))
 
 vals = data[0]
 dates = data[1]

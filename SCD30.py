@@ -18,7 +18,10 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
-readings = []
+co2_readings = []
+temp_readings = []
+hum_readings = []
+
 times = []
 
 def run_command(command):
@@ -35,13 +38,15 @@ def run_command(command):
                     hum = text[4]
                     temp = text[7]
 
-                    readings.append(int(co2))
+                    co2_readings.append(int(co2))
+                    temp_readings.append(int(temp))
+                    hum_readings.append(int(hum))
                     timestamp = datetime.datetime.now()
                     times.append(timestamp)
                     print("{0} at {1}".format(co2, timestamp.ctime()))
 
                     with open("data1", "wb+") as f:
-                        pickle.dump([readings, times], f)
+                        pickle.dump([co2_readings, temp_readings, hum_readings, times], f)
                         print("done")
 
         except:
