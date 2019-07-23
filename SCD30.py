@@ -1,10 +1,9 @@
 import subprocess
-import shlex
-import tweepy
+#import tweepy
 import pickle
 import datetime
 
-
+"""
 with open("keys", "r") as f:
     text = f.read()
     lines = text.splitlines()
@@ -17,6 +16,10 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
+print('twitter initialized')
+"""
+
+print('starting')
 
 co2_readings = []
 temp_readings = []
@@ -25,12 +28,18 @@ hum_readings = []
 times = []
 
 def run_command(command):
-    process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
+    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
     while True:
         try:
             output = process.stdout.readline()
-            if output == '' and process.poll() is not None:
+            print(output)
+            if output.decode("utf-8") == '' and process.poll() is not None:
+                process.kill()
                 break
+
+
+
+
             if output:
                 text = output.strip().decode("utf-8").split()
                 if text[0] == "CO2:":
@@ -38,18 +47,18 @@ def run_command(command):
                     hum = text[4]
                     temp = text[7]
 
-                    co2_readings.append(int(co2))
-                    temp_readings.append(int(temp))
-                    hum_readings.append(int(hum))
-                    timestamp = datetime.datetime.now()
-                    times.append(timestamp)
+                    #co2_readings.append(int(co2))
+                    #temp_readings.append(int(temp))
+                    #hum_readings.append(int(hum))
+                    #timestamp = datetime.datetime.now()
+                    #times.append(timestamp)
                     print("{0} at {1}".format(co2, timestamp.ctime()))
 
-                    with open("data1", "wb+") as f:
-                        pickle.dump([co2_readings, temp_readings, hum_readings, times], f)
-                        print("done")
+                    #with open("data1", "wb+") as f:
+                        #pickle.dump([co2_readings, temp_readings, hum_readings, times], f)
+                        #print("done")
 
         except:
             pass
 
-run_command("scd30_on_raspberry/scd30 -Bn -l 0 -w 60")
+run_command("scd30_on_raspberry/scd30 -Bn -l 0 -w 2")
