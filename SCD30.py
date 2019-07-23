@@ -27,6 +27,7 @@ hum_readings = []
 
 times = []
 
+
 def run_command(command):
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
     while True:
@@ -37,9 +38,6 @@ def run_command(command):
                 process.kill()
                 break
 
-
-
-
             if output:
                 text = output.strip().decode("utf-8").split()
                 if text[0] == "CO2:":
@@ -47,16 +45,16 @@ def run_command(command):
                     hum = text[4]
                     temp = text[7]
 
-                    #co2_readings.append(int(co2))
-                    #temp_readings.append(int(temp))
-                    #hum_readings.append(int(hum))
-                    #timestamp = datetime.datetime.now()
-                    #times.append(timestamp)
+                    co2_readings.append(int(co2))
+                    temp_readings.append(int(temp))
+                    hum_readings.append(int(hum))
+                    timestamp = datetime.datetime.now()
+                    times.append(timestamp)
                     print("{0} at {1}".format(co2, timestamp.ctime()))
 
-                    #with open("data1", "wb+") as f:
-                        #pickle.dump([co2_readings, temp_readings, hum_readings, times], f)
-                        #print("done")
+                    with open("data1", "wb+") as f:
+                        pickle.dump([co2_readings, temp_readings, hum_readings, times], f)
+                        print("done")
 
         except:
             pass
