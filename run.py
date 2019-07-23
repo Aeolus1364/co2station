@@ -1,5 +1,6 @@
 import subprocess
 import datetime
+import pickle
 
 co2_readings = []
 temp_readings = []
@@ -26,5 +27,8 @@ def run_command(command):
                 times.append(timestamp)
 
                 print(text[1], text[4], text[7], timestamp)
+
+                with open('data', 'wb+') as f:
+                    pickle.dump([co2_readings, humid_readings, temp_readings, times], f)
 
 run_command('scd30_on_raspberry/scd30 -Bn -l 0 -w 5')
