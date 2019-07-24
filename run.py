@@ -31,4 +31,4 @@ def run_command(command):
                 with open('data', 'wb+') as f:
                     pickle.dump([co2_readings, humid_readings, temp_readings, times], f)
 
-run_command('scd30_on_raspberry/scd30 -Bn -l 0 -w 5')
+run_command('scd30_on_raspberry/scd30 -Bn -l 0 -w 60')
